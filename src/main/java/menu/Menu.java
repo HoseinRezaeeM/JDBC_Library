@@ -26,15 +26,12 @@ public class Menu {
         System.out.println(" Enter your Select -> ");
         int select = scanner.nextInt();
         switch (select) {
-            case 1:
-                addAuthor();
-
-            case 2:
-                addBook();
-
-
-            default:
-                System.out.println("Errorr");
+            case 1 -> addAuthor();
+            case 2 -> addBook();
+            case 3 -> searchBook();
+            case 4 -> searchAuthor();
+            case 5 -> deleteBook();
+            default -> System.out.println("Errorr");
 
         }
 
@@ -85,9 +82,15 @@ public class Menu {
         bookService.load(bookid);
     }
 
-    public void searchAuthor() throws SQLException{
+    public void searchAuthor() throws SQLException {
         System.out.println("Which your AuthorId ? ");
         int authorid = scanner.nextInt();
         authorService.load(authorid);
+    }
+
+    public void deleteBook() throws SQLException {
+        System.out.println("Which your BookID ?");
+        int bookid = scanner.nextInt();
+        bookService.delete(bookid);
     }
 }
