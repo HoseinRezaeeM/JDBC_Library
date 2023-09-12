@@ -10,38 +10,35 @@ import java.sql.SQLException;
 
 public class AuthorRepository {
 
-    JdbcConnection jdbcConnection=new JdbcConnection();
-    Connection connection=jdbcConnection.getConnection();
+    JdbcConnection jdbcConnection = new JdbcConnection();
+    Connection connection = jdbcConnection.getConnection();
 
     public AuthorRepository() throws SQLException {
     }
 
     public int save(Author author) throws SQLException {
-        String sql="INSERT INTO author(firstname, lastnname, age) VALUES (?,?,?)";
-        PreparedStatement preparedStatement= connection.prepareStatement(sql);
+        String sql = "INSERT INTO author(firstname, lastnname, age) VALUES (?,?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, author.getFirstName());
-        preparedStatement.setString(2,author.getLastnName());
-        preparedStatement.setInt(3,author.getAge());
+        preparedStatement.setString(2, author.getLastnName());
+        preparedStatement.setInt(3, author.getAge());
         int result = preparedStatement.executeUpdate();
         return result;
     }
 
-    public Author load(int authorId)throws SQLException{
-        String sql="SELECT * FROM author WHERE authorid=?";
-        PreparedStatement preparedStatement=connection.prepareStatement(sql);
-        ResultSet resultSet= preparedStatement.executeQuery();
-        if (resultSet.next()){
-            Author author = new Author(
-                    resultSet.getInt("authorId"),
-                    resultSet.getString("firstName"),
-                    resultSet.getString("lastName"),
-                    resultSet.getInt("age")
-            );
-            return author;
-        }else{
-            return null;
+    public void load(int authorId) throws SQLException {
+        String sql = "SELECT * FROM author WHERE authorid=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,authorId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            String firstName = resultSet.getString("firstname");
+            String lastName = resultSet.getString("lastnname");
+            int age = resultSet.getInt("age");
+            System.out.println(" Author infomation ->  firstName : " + firstName + " lastName : " + lastName + " Age :" + age);
+
+
         }
 
     }
-
 }
