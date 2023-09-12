@@ -23,9 +23,10 @@ public class AuthorService {
 
     }
 
-    public Author load(int authorId)throws SQLException{
-        Author author=authorRepository.load(authorId);
-        return author;
+    public void load(int authorId)throws SQLException{
+
+        authorRepository.load(authorId);
+
     }
 
 }
