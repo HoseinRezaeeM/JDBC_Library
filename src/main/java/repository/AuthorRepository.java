@@ -5,6 +5,7 @@ import jdbcConnection.JdbcConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AuthorRepository {
@@ -25,5 +26,22 @@ public class AuthorRepository {
         return result;
     }
 
+    public Author load(int authorId)throws SQLException{
+        String sql="SELECT * FROM author WHERE authorid=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        ResultSet resultSet= preparedStatement.executeQuery();
+        if (resultSet.next()){
+            Author author = new Author(
+                    resultSet.getInt("authorId"),
+                    resultSet.getString("firstName"),
+                    resultSet.getString("lastName"),
+                    resultSet.getInt("age")
+            );
+            return author;
+        }else{
+            return null;
+        }
+
+    }
 
 }
