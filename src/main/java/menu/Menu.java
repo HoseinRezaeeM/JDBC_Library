@@ -1,5 +1,6 @@
 package menu;
 
+import author.Author;
 import book.Book;
 import service.AuthorService;
 import service.BookService;
@@ -10,12 +11,12 @@ import java.util.Scanner;
 public class Menu {
     AuthorService authorService = new AuthorService();
     BookService bookService = new BookService();
-    Scanner scanner=new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
     public Menu() throws SQLException {
     }
 
-    public void firstMenu() throws SQLException{
+    public void firstMenu() throws SQLException {
         System.out.println("---------Welcom to Library ---------");
         System.out.println("1 - Add Book ");
         System.out.println("2 - Add Author");
@@ -23,16 +24,24 @@ public class Menu {
         System.out.println("4 - Search Author");
         System.out.println("5 - Delete Book");
         System.out.println(" Enter your Select ");
-        int select =scanner.nextInt();
-        switch (select){
+        int select = scanner.nextInt();
+        switch (select) {
             case 1:
+                addBook();
+            case 2:
+                addAuthor();
+
+
+            default:
+                System.out.println("Errorr");
 
         }
 
     }
+
     public void addBook() throws SQLException {
         System.out.println("How many Book add in library ?");
-        int tedad =scanner.nextInt();
+        int tedad = scanner.nextInt();
 
         for (int i = 1; i <= tedad; i++) {
 
@@ -43,10 +52,29 @@ public class Menu {
             String printYear = scanner.nextLine();
             System.out.println("Enter AuthorID");
             int AuthorId = scanner.nextInt();
-            Book book =new Book(AuthorId,title,printYear,null);
+            Book book = new Book(AuthorId, title, printYear, null);
             bookService.register(book);
 
         }
 
+    }
+
+    public void addAuthor() throws SQLException {
+        System.out.println("How many Author add in library ?");
+        int tedad = scanner.nextInt();
+
+        for (int i = 1; i <= tedad; i++) {
+
+
+            System.out.println("Enter firstName");
+            String firstName = scanner.nextLine();
+            System.out.println("Enter lastName ");
+            String lastName = scanner.nextLine();
+            System.out.println("Enter age");
+            int age = scanner.nextInt();
+            Author author = new Author(null, firstName, lastName, age);
+            authorService.register(author);
+
+        }
     }
 }
