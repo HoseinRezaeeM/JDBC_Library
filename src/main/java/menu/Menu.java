@@ -17,19 +17,20 @@ public class Menu {
     }
 
     public void firstMenu() throws SQLException {
-        System.out.println("---------Welcom to Library ---------");
-        System.out.println("1 - Add Book ");
-        System.out.println("2 - Add Author");
+        System.out.println("\n---------Welcom to Library ---------\n");
+        System.out.println("1 - Add Author ");
+        System.out.println("2 - Add book");
         System.out.println("3 - Search Book");
         System.out.println("4 - Search Author");
-        System.out.println("5 - Delete Book");
-        System.out.println(" Enter your Select ");
+        System.out.println("5 - Delete Book\n");
+        System.out.println(" Enter your Select -> ");
         int select = scanner.nextInt();
         switch (select) {
             case 1:
-                addBook();
-            case 2:
                 addAuthor();
+
+            case 2:
+                addBook();
 
 
             default:
@@ -47,9 +48,9 @@ public class Menu {
 
 
             System.out.println("Enter title");
-            String title = scanner.nextLine();
+            String title = scanner.next();
             System.out.println("Enter printYear");
-            String printYear = scanner.nextLine();
+            String printYear = scanner.next();
             System.out.println("Enter AuthorID");
             int AuthorId = scanner.nextInt();
             Book book = new Book(AuthorId, title, printYear, null);
@@ -67,14 +68,26 @@ public class Menu {
 
 
             System.out.println("Enter firstName");
-            String firstName = scanner.nextLine();
+            String firstName = scanner.next();
             System.out.println("Enter lastName ");
-            String lastName = scanner.nextLine();
+            String lastName = scanner.next();
             System.out.println("Enter age");
             int age = scanner.nextInt();
             Author author = new Author(null, firstName, lastName, age);
             authorService.register(author);
 
         }
+    }
+
+    public void searchBook() throws SQLException {
+        System.out.println("Which your BookID ?");
+        int bookid = scanner.nextInt();
+        bookService.load(bookid);
+    }
+
+    public void searchAuthor() throws SQLException{
+        System.out.println("Which your AuthorId ? ");
+        int authorid = scanner.nextInt();
+        authorService.load(authorid);
     }
 }
