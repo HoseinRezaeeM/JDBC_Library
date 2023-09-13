@@ -30,13 +30,14 @@ public class BookRepository {
     public Book load(int bookId)throws SQLException{
         String sql="SELECT * FROM book WHERE bookid=?";
         PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.setInt(1,bookId);
         ResultSet resultSet= preparedStatement.executeQuery();
         if (resultSet.next()){
             Book book = new Book(
                     resultSet.getInt("bookId"),
-                    resultSet.getString("authorId"),
+                    resultSet.getInt("authorId"),
                     resultSet.getString("title"),
-                    resultSet.getInt("printYear")
+                    resultSet.getString("printYear")
             );
             return book;
         }else{
@@ -50,5 +51,25 @@ public class BookRepository {
         preparedStatement.setInt(1,bookId);
         int result = preparedStatement.executeUpdate();
         return result;
+    }
+
+    public Book[] loadBookAuthor (int authorId) throws SQLException{
+        String add ="SELECT * FROM book INNER JOIN author b on book.authorid = b.authorid WHERE b.authorid=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(add);
+        preparedStatement.setInt(1,authorId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Book [] books=new Book[3];
+        int i =0;
+
+        while (resultSet.next()){
+            books[i] =new Book( resultSet.getInt(1),
+                    resultSet.getInt(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4));
+            i++;
+
+        }
+        return books;
+
     }
 }
