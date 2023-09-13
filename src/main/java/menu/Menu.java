@@ -22,35 +22,54 @@ public class Menu {
         System.out.println("2 - Add book");
         System.out.println("3 - Search Book");
         System.out.println("4 - Search Author");
-        System.out.println("5 - Delete Book\n");
+        System.out.println("5 - Search Book Author");
+        System.out.println("6 - Delete Book");
+        System.out.println("7 - Exits\n");
         System.out.println(" Enter your Select -> ");
         int select = scanner.nextInt();
         switch (select) {
-            case 1 -> addAuthor();
-            case 2 -> addBook();
-            case 3 -> searchBook();
-            case 4 -> searchAuthor();
-            case 5 -> deleteBook();
-            default -> System.out.println("Errorr");
+            case 1:
+                addAuthor();
+                break;
+            case 2:
+                addBook();
+                break;
+            case 3:
+                searchBook();
+                break;
+            case 4:
+                searchAuthor();
+                break;
+            case 5:
+                searchAuthorBook();
+                break;
+            case 6:
+                deleteBook();
+                break;
+            case 7:
+                System.out.println("----Goodbye----");
+                break;
+            default:
+                System.out.println("Errorr");
 
         }
 
     }
 
     public void addBook() throws SQLException {
-        System.out.println("How many Book add in library ?");
+        System.out.println(" How many Book add in library ?");
         int tedad = scanner.nextInt();
 
         for (int i = 1; i <= tedad; i++) {
 
 
-            System.out.println("Enter title");
+            System.out.println(" Enter title");
             String title = scanner.next();
-            System.out.println("Enter printYear");
+            System.out.println(" Enter printYear");
             String printYear = scanner.next();
-            System.out.println("Enter AuthorID");
+            System.out.println(" Enter AuthorID");
             int AuthorId = scanner.nextInt();
-            Book book = new Book(AuthorId, title, printYear, null);
+            Book book = new Book(null, AuthorId, title, printYear);
             bookService.register(book);
 
         }
@@ -58,17 +77,17 @@ public class Menu {
     }
 
     public void addAuthor() throws SQLException {
-        System.out.println("How many Author add in library ?");
+        System.out.println(" How many Author add in library ?");
         int tedad = scanner.nextInt();
 
         for (int i = 1; i <= tedad; i++) {
 
 
-            System.out.println("Enter firstName");
+            System.out.println(" Enter firstName");
             String firstName = scanner.next();
-            System.out.println("Enter lastName ");
+            System.out.println(" Enter lastName ");
             String lastName = scanner.next();
-            System.out.println("Enter age");
+            System.out.println(" Enter age");
             int age = scanner.nextInt();
             Author author = new Author(null, firstName, lastName, age);
             authorService.register(author);
@@ -77,20 +96,26 @@ public class Menu {
     }
 
     public void searchBook() throws SQLException {
-        System.out.println("Which your BookID ?");
+        System.out.println(" Which your BookID ?");
         int bookid = scanner.nextInt();
         bookService.load(bookid);
     }
 
     public void searchAuthor() throws SQLException {
-        System.out.println("Which your AuthorId ? ");
+        System.out.println(" Which your AuthorId ? ");
         int authorid = scanner.nextInt();
         authorService.load(authorid);
     }
 
     public void deleteBook() throws SQLException {
-        System.out.println("Which your BookID ?");
+        System.out.println(" Which your BookID delete ?");
         int bookid = scanner.nextInt();
         bookService.delete(bookid);
+    }
+
+    public void searchAuthorBook() throws SQLException {
+        System.out.println(" Which your AuthorId Book?");
+        int authorid = scanner.nextInt();
+        bookService.loadAllAuthorBook(authorid);
     }
 }
