@@ -35,10 +35,11 @@ public class AuthorRepository {
             String firstName = resultSet.getString("firstname");
             String lastName = resultSet.getString("lastnname");
             int age = resultSet.getInt("age");
-            System.out.println(" Author infomation ->  firstName : " + firstName + " lastName : " + lastName + " Age :" + age);
+            System.out.println(" Author infomation -->  firstName : " + firstName + ", lastName : " + lastName + ", Age :" + age);
 
 
         }
 
     }
+
 }
