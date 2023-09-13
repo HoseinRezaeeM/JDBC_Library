@@ -4,12 +4,13 @@ import book.Book;
 import repository.BookRepository;
 
 import java.sql.SQLException;
-import java.util.Scanner;
+import java.util.Arrays;
+
 
 public class BookService {
 
     BookRepository bookRepository = new BookRepository();
-    Scanner scanner = new Scanner(System.in);
+
 
     public BookService() throws SQLException {
     }
@@ -22,16 +23,21 @@ public class BookService {
             System.out.println("Don't add to database!! ");
     }
 
-    public Book load(int bookId) throws SQLException {
-        Book book = bookRepository.load(bookId);
-        return book;
+    public void load(int bookId) throws SQLException {
+        System.out.println(bookRepository.load(bookId));
+
     }
 
-    public void delete(int bookId)throws SQLException{
-        int result=bookRepository.delete(bookId);
+    public void delete(int bookId) throws SQLException {
+        int result = bookRepository.delete(bookId);
         if (result != 0)
-            System.out.println(bookId + " successfully delete to database");
+            System.out.println("BookID : "+bookId + " successfully delete to database");
         else
             System.out.println("Don't delete to database!! ");
+    }
+
+    public void loadAllAuthorBook(int authorId) throws SQLException {
+        Book [] books=bookRepository.loadBookAuthor(authorId);
+        System.out.println(Arrays.toString(books));
     }
 }
