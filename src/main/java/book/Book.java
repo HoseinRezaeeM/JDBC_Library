@@ -7,11 +7,13 @@ public class Book {
     private String title;
     private String printYear;
 
-    public Book(Integer authorId, String title, String printYear,Integer bookId) {
+
+    public Book( Integer bookId,Integer authorId,String title, String printYear ) {
         this.authorId = authorId;
+        this.bookId = bookId;
         this.title = title;
         this.printYear = printYear;
-        this.bookId=bookId;
+
     }
 
     public Integer getBookId() {
@@ -44,5 +46,13 @@ public class Book {
 
     public void setPrintYear(String printYear) {
         this.printYear = printYear;
+    }
+
+    public String toString() {
+        return "--> " +
+                "bookId = " + bookId +
+                ", authorId = " + authorId +
+                ", title = " + title +
+                ", printYear = " + printYear;
     }
 }
